@@ -1,7 +1,9 @@
-import "./App.css";
+import InteractiveCardContainer from "components/InteractiveCardContainer";
+
+import "./App.scss";
 
 function App() {
-  return <div />;
+  return <InteractiveCardContainer />;
 }
 
 export default App;
