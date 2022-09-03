@@ -1,3 +1,6 @@
+import CardFront from "components/CardFront";
+import CardBack from "components/CardBack";
+
 import DesktopBgImage from "../../images/bg-main-desktop.png";
 
 import "./style.scss";
@@ -57,6 +60,14 @@ function InteractiveCardContainer() {
           </div>
           <button className="submit-btn">Confirm</button>
         </form>
+      </div>
+      <div className="cards-wrapper">
+        <div className="card-front-position">
+          <CardFront />
+        </div>
+        <div className="card-back-position">
+          <CardBack />
+        </div>
       </div>
     </div>
   );
