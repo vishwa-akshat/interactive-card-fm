@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import CardFront from "components/CardFront";
 import CardBack from "components/CardBack";
 
@@ -6,6 +8,26 @@ import DesktopBgImage from "../../images/bg-main-desktop.png";
 import "./style.scss";
 
 function InteractiveCardContainer() {
+  const defaultFormContent = {
+    name: "",
+    cardNumber: "",
+    month: "",
+    year: "",
+    cvc: "",
+  };
+
+  const [formContent, setFormContent] = useState(defaultFormContent);
+  const { name, cardNumber, month, year, cvc } = formContent;
+
+  function handleInputChange(event) {
+    const {
+      target: { value, name },
+    } = event;
+    setFormContent({ ...formContent, [name]: value });
+  }
+
+  const spacedCardNumber = cardNumber.replace(/.{4}/g, "$& ");
+
   return (
     <div className="interactive-card-form-container">
       <div className="background-image-wrapper">
@@ -23,6 +45,9 @@ function InteractiveCardContainer() {
               type="text"
               className="form-input"
               placeholder="e.g. Jane Appleseed"
+              onChange={handleInputChange}
+              name="name"
+              value={name}
             />
           </div>
           <div className="input-wrapper">
@@ -31,6 +56,10 @@ function InteractiveCardContainer() {
               type="text"
               className="form-input"
               placeholder="e.g. 1234 5678 9123 0000"
+              value={spacedCardNumber}
+              name="cardNumber"
+              onChange={handleInputChange}
+              maxLength="16"
             />
           </div>
           <div className="date-cvc-wrapper">
@@ -41,11 +70,19 @@ function InteractiveCardContainer() {
                   className="date-input form-input"
                   type="text"
                   placeholder="MM"
+                  onChange={handleInputChange}
+                  name="month"
+                  value={month}
+                  maxLength="2"
                 />
                 <input
                   className="date-input form-input"
                   type="text"
                   placeholder="YY"
+                  onChange={handleInputChange}
+                  name="year"
+                  value={year}
+                  maxLength="2"
                 />
               </div>
             </div>
@@ -55,6 +92,10 @@ function InteractiveCardContainer() {
                 className="cvc-input form-input"
                 type="text"
                 placeholder="e.g. 123"
+                onChange={handleInputChange}
+                name="cvc"
+                value={cvc}
+                maxLength="3"
               />
             </div>
           </div>
@@ -63,10 +104,10 @@ function InteractiveCardContainer() {
       </div>
       <div className="cards-wrapper">
         <div className="card-front-position">
-          <CardFront />
+          <CardFront formContent={formContent} />
         </div>
         <div className="card-back-position">
-          <CardBack />
+          <CardBack cvc={cvc} />
         </div>
       </div>
     </div>

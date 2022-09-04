@@ -1,8 +1,19 @@
 .card-back-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
+  z-index: 0;
   .card-back-bg {
     width: 100%;
     height: 100%;
+  }
+
+  .card-cvc {
+    color: #fff;
+    position: absolute;
+    top: 114px;
+    right: 60px;
+    font-size: 15px;
+    letter-spacing: 2px;
   }
 }
