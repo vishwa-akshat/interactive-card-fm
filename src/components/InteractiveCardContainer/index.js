@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { map } from "lodash";
 
 import CardFront from "components/CardFront";
 import CardBack from "components/CardBack";
@@ -17,7 +18,23 @@ function InteractiveCardContainer() {
   };
 
   const [formContent, setFormContent] = useState(defaultFormContent);
+  const [spacedCardNumber, setSpacedCardNumber] = useState();
+
   const { name, cardNumber, month, year, cvc } = formContent;
+
+  const spacedCardNumberHandler = (str) => {
+    return (
+      str
+        .replace(/\s/g, "")
+        .match(/.{1,4}/g)
+        ?.join(" ")
+        .substr(0, 19) || ""
+    );
+  };
+
+  useEffect(() => {
+    setSpacedCardNumber(spacedCardNumberHandler(cardNumber));
+  }, [cardNumber]);
 
   function handleInputChange(event) {
     const {
@@ -25,8 +42,6 @@ function InteractiveCardContainer() {
     } = event;
     setFormContent({ ...formContent, [name]: value });
   }
-
-  const spacedCardNumber = cardNumber.replace(/.{4}/g, "$& ");
 
   return (
     <div className="interactive-card-form-container">
@@ -59,7 +74,7 @@ function InteractiveCardContainer() {
               value={spacedCardNumber}
               name="cardNumber"
               onChange={handleInputChange}
-              maxLength="16"
+              // maxLength="16"
             />
           </div>
           <div className="date-cvc-wrapper">
@@ -104,7 +119,10 @@ function InteractiveCardContainer() {
       </div>
       <div className="cards-wrapper">
         <div className="card-front-position">
-          <CardFront formContent={formContent} />
+          <CardFront
+            formContent={formContent}
+            spacedCardNumber={spacedCardNumber}
+          />
         </div>
         <div className="card-back-position">
           <CardBack cvc={cvc} />

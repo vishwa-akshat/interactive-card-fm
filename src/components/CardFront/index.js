@@ -1,11 +1,12 @@
 import CardFrontBGImage from "images/bg-card-front.png";
 import CardLogo from "images/card-logo.svg";
-import { isEmpty } from "lodash";
+import { isEmpty, map } from "lodash";
 
 import "./style.scss";
 
-function CardFront({ formContent }) {
-  const { name } = formContent;
+function CardFront({ formContent, spacedCardNumber }) {
+  const { name, month, year } = formContent;
+
   function populateCardNumber() {
     const defaultCardNumber = [
       0,
@@ -28,10 +29,35 @@ function CardFront({ formContent }) {
       0,
       0,
     ];
-    return defaultCardNumber;
+
+    const resultCardNumber = map(defaultCardNumber, (num, index) => {
+      if (!isEmpty(spacedCardNumber[index])) {
+        return spacedCardNumber[index];
+      }
+      return num;
+    }).join("");
+    return resultCardNumber;
   }
 
-  function populateCardExpiry() {}
+  function populateCardExpiry() {
+    const defaultMonthYear = [0, 0];
+
+    const resultMonth = map(defaultMonthYear, (mon, index) => {
+      if (!isEmpty(month[index])) {
+        return month[index];
+      }
+      return mon;
+    }).join("");
+
+    const resultYear = map(defaultMonthYear, (y, index) => {
+      if (!isEmpty(year[index])) {
+        return year[index];
+      }
+      return y;
+    }).join("");
+
+    return `${resultMonth} / ${resultYear}`;
+  }
 
   return (
     <div className="card-front-wrapper">
