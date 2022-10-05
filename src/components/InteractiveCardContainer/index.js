@@ -51,6 +51,17 @@ function InteractiveCardContainer() {
           src={DesktopBgImage}
           alt="background"
         />
+        <div className="cards-wrapper">
+          <div className="card-front-position">
+            <CardFront
+              formContent={formContent}
+              spacedCardNumber={spacedCardNumber}
+            />
+          </div>
+          <div className="card-back-position">
+            <CardBack cvc={cvc} />
+          </div>
+        </div>
       </div>
       <div className="interactive-card-form-wrapper">
         <form className="form-wrapper">
@@ -68,7 +79,7 @@ function InteractiveCardContainer() {
           <div className="input-wrapper">
             <label className="input-label">CARD NUMBER</label>
             <input
-              type="text"
+              type="number"
               className="form-input"
               placeholder="e.g. 1234 5678 9123 0000"
               value={spacedCardNumber}
@@ -115,17 +126,6 @@ function InteractiveCardContainer() {
           </div>
           <button className="submit-btn">Confirm</button>
         </form>
-      </div>
-      <div className="cards-wrapper">
-        <div className="card-front-position">
-          <CardFront
-            formContent={formContent}
-            spacedCardNumber={spacedCardNumber}
-          />
-        </div>
-        <div className="card-back-position">
-          <CardBack cvc={cvc} />
-        </div>
       </div>
     </div>
   );
