@@ -15,11 +15,11 @@
     height: 100%;
     top: 0;
     left: 0;
-    padding: 25px 30px;
+    padding: 1.736vw 2.083vw;
 
     .logo-wrapper {
-      width: 90px;
-      height: 50px;
+      width: 6.25vw;
+      height: 3.472vw;
       .card-front-logo {
         width: 100%;
         height: 100%;
@@ -28,27 +28,27 @@
 
     .card-number {
       color: #fff;
-      font-size: 30px;
-      letter-spacing: 4px;
-      margin-top: 60px;
+      font-size: 2.083vw;
+      letter-spacing: 0.278vw;
+      margin-top: 15%;
     }
 
     .card-name-and-expiry-wrapper {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      margin-top: 30px;
+      margin-top: 8%;
       .card-name {
         color: #fff;
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 0.972vw;
         font-weight: 500;
         letter-spacing: 3px;
       }
 
       .card-expiry {
         color: #fff;
-        font-size: 14px;
+        font-size: 0.972vw;
         font-weight: 500;
         letter-spacing: 3px;
       }

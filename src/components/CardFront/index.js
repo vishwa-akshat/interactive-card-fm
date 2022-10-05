@@ -4,7 +4,7 @@ import { isEmpty, map } from "lodash";
 
 import "./style.scss";
 
-function CardFront({ formContent, spacedCardNumber }) {
+function CardFront({ formContent, spacedCardNumber = [] }) {
   const { name, month, year } = formContent;
 
   function populateCardNumber() {

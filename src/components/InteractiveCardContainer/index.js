@@ -74,7 +74,6 @@ function InteractiveCardContainer() {
               value={spacedCardNumber}
               name="cardNumber"
               onChange={handleInputChange}
-              // maxLength="16"
             />
           </div>
           <div className="date-cvc-wrapper">
