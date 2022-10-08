@@ -11,9 +11,20 @@
   .card-cvc {
     color: #fff;
     position: absolute;
-    top: 7.917vw;
+    top: 8.2vw;
     right: 4.167vw;
     font-size: 1.042vw;
     letter-spacing: 0.139vw;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .card-back-wrapper {
+    .card-cvc {
+      top: 18.7vw;
+      right: 10vw;
+      font-size: 3vw;
+      letter-spacing: 0.4vw;
+    }
   }
 }

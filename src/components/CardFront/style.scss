@@ -55,3 +55,42 @@
     }
   }
 }
+
+@media only screen and (max-width: 430px) {
+  .card-front-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .card-front-bg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-front-content-wrapper {
+      padding: 4vw 5vw;
+
+      .logo-wrapper {
+        width: 13vw;
+        height: 7vw;
+      }
+
+      .card-number {
+        font-size: 5.2vw;
+        letter-spacing: 0.5vw;
+        margin-top: 15%;
+      }
+
+      .card-name-and-expiry-wrapper {
+        margin-top: 4.5%;
+        .card-name {
+          font-size: 2.5vw;
+        }
+
+        .card-expiry {
+          font-size: 2.5vw;
+        }
+      }
+    }
+  }
+}
