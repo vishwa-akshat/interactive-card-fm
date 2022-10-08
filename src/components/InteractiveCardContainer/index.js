@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { isEmpty, isNil } from "lodash";
+import { isEmpty } from "lodash";
+import classnames from "classnames";
 
 import CardFront from "components/CardFront";
 import CardBack from "components/CardBack";
@@ -45,7 +46,7 @@ function InteractiveCardContainer() {
 
   useEffect(() => {
     setFormErrors(defaultFormErrors);
-  }, []);
+  }, [formContent]);
 
   useEffect(() => {
     setSpacedCardNumber(spacedCardNumberHandler(cardNumber));
@@ -58,6 +59,10 @@ function InteractiveCardContainer() {
     setFormContent({ ...formContent, [inputName]: value });
   }
 
+  function checkIsNumber(value) {
+    return /^\d+\.\d+$|^\d+$/.test(value);
+  }
+
   function handleFormSubmit(event) {
     event.preventDefault();
     let errors = { ...formErrors };
@@ -67,26 +72,34 @@ function InteractiveCardContainer() {
     }
 
     //Card Number Validation
-    // if (isEmpty(cardNumber)) {
-    //   errors.cardNumberError = "Can't be blank";
-    // }
     const cardNumberSimplified = [...cardNumber].join("").replace(/ /g, "");
-    const isNumber = /^\d+\.\d+$|^\d+$/.test(cardNumberSimplified);
-    if (!isNumber) {
+    if (!checkIsNumber(cardNumberSimplified) && !isEmpty(cardNumber)) {
       errors.cardNumberError = "Wrong format, numbers only";
+    }
+    if (isEmpty(cardNumber)) {
+      errors.cardNumberError = "Can't be blank";
     }
 
     //Month Validation
+    if (!checkIsNumber(month) && !isEmpty(month)) {
+      errors.monthError = "Wrong format, numbers only";
+    }
     if (isEmpty(month)) {
       errors.monthError = "Can't be blank";
     }
 
     //Year Validation
+    if (!checkIsNumber(year) && !isEmpty(year)) {
+      errors.yearError = "Wrong format, numbers only";
+    }
     if (isEmpty(year)) {
       errors.yearError = "Can't be blank";
     }
 
     //CVC Validation
+    if (!checkIsNumber(cvc) && !isEmpty(cvc)) {
+      errors.cvcError = "Wrong format, numbers only";
+    }
     if (isEmpty(cvc)) {
       errors.cvcError = "Can't be blank";
     }
@@ -120,25 +133,29 @@ function InteractiveCardContainer() {
             <label className="input-label">CARDHOLDER NAME</label>
             <input
               type="text"
-              className="form-input"
+              className={classnames("form-input", {
+                "error-input": !isEmpty(nameError),
+              })}
               placeholder="e.g. Jane Appleseed"
               onChange={handleInputChange}
               name="name"
               value={name}
             />
-            {!isNil(nameError) && <p className="error-msg">{nameError}</p>}
+            {!isEmpty(nameError) && <p className="error-msg">{nameError}</p>}
           </div>
           <div className="input-wrapper">
             <label className="input-label">CARD NUMBER</label>
             <input
               type="text"
-              className="form-input"
+              className={classnames("form-input", {
+                "error-input": !isEmpty(cardNumberError),
+              })}
               placeholder="e.g. 1234 5678 9123 0000"
               value={spacedCardNumber}
               name="cardNumber"
               onChange={handleInputChange}
             />
-            {!isNil(cardNumberError) && (
+            {!isEmpty(cardNumberError) && (
               <p className="error-msg">{cardNumberError}</p>
             )}
           </div>
@@ -147,8 +164,10 @@ function InteractiveCardContainer() {
               <label className="input-label">Exp. Date (MM/YY)</label>
               <div className="date-input-wrapper">
                 <input
-                  className="date-input form-input"
-                  type="number"
+                  className={classnames("form-input", "date-input", {
+                    "error-input": !isEmpty(monthError),
+                  })}
+                  type="text"
                   placeholder="MM"
                   onChange={handleInputChange}
                   name="month"
@@ -156,8 +175,10 @@ function InteractiveCardContainer() {
                   maxLength="2"
                 />
                 <input
-                  className="date-input form-input"
-                  type="number"
+                  className={classnames("form-input", "date-input", {
+                    "error-input": !isEmpty(yearError),
+                  })}
+                  type="text"
                   placeholder="YY"
                   onChange={handleInputChange}
                   name="year"
@@ -165,14 +186,16 @@ function InteractiveCardContainer() {
                   maxLength="2"
                 />
               </div>
-              {(!isNil(monthError) || !isNil(yearError)) && (
+              {(!isEmpty(monthError) || !isEmpty(yearError)) && (
                 <p className="error-msg">{monthError || yearError}</p>
               )}
             </div>
             <div className="input-wrapper">
               <label className="input-label">CVC</label>
               <input
-                className="cvc-input form-input"
+                className={classnames("form-input", "cvc-input", {
+                  "error-input": !isEmpty(cvcError),
+                })}
                 type="number"
                 placeholder="e.g. 123"
                 onChange={handleInputChange}
@@ -180,7 +203,7 @@ function InteractiveCardContainer() {
                 value={cvc}
                 maxLength="3"
               />
-              {!isNil(cvcError) && <p className="error-msg">{cvcError}</p>}
+              {!isEmpty(cvcError) && <p className="error-msg">{cvcError}</p>}
             </div>
           </div>
           <button className="submit-btn">Confirm</button>
