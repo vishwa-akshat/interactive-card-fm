@@ -48,6 +48,14 @@
           font-weight: 500;
           letter-spacing: 0.139vw;
         }
+
+        .error-msg {
+          color: hsl(0, 100%, 66%);
+          font-weight: 500;
+          font-size: 0.95vw;
+          margin-top: 0.4vw;
+        }
+
         .form-input {
           border: 1px solid hsl(279, 6%, 55%);
           box-sizing: border-box;
@@ -73,6 +81,10 @@
             background-clip: padding-box, border-box;
           }
         }
+
+        .error-input {
+          border: 1px solid hsl(0, 100%, 66%);
+        }
       }
 
       .date-cvc-wrapper {
@@ -81,6 +93,7 @@
 
         .input-wrapper {
           width: 48%;
+
           .date-input-wrapper {
             display: flex;
             justify-content: space-between;

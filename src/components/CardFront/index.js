@@ -68,10 +68,8 @@ function CardFront({ formContent, spacedCardNumber = [] }) {
         </div>
         <div className="card-number">{populateCardNumber()}</div>
         <div className="card-name-and-expiry-wrapper">
-          <paragraph className="card-name">
-            {isEmpty(name) ? "Jane Appleseed" : name}
-          </paragraph>
-          <paragraph className="card-expiry">{populateCardExpiry()}</paragraph>
+          <p className="card-name">{isEmpty(name) ? "Jane Appleseed" : name}</p>
+          <p className="card-expiry">{populateCardExpiry()}</p>
         </div>
       </div>
     </div>
