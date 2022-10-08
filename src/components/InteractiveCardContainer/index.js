@@ -6,6 +6,7 @@ import CardFront from "components/CardFront";
 import CardBack from "components/CardBack";
 
 import DesktopBgImage from "../../images/bg-main-desktop.png";
+import IconComplete from "../../images/icon-complete.svg";
 
 import "./style.scss";
 
@@ -107,6 +108,106 @@ function InteractiveCardContainer() {
     return setFormErrors(errors);
   }
 
+  const renderFormContent = (
+    <div className="interactive-card-form-wrapper">
+      <form onSubmit={handleFormSubmit} className="form-wrapper">
+        <div className="input-wrapper">
+          <label className="input-label">CARDHOLDER NAME</label>
+          <input
+            type="text"
+            className={classnames("form-input", {
+              "error-input": !isEmpty(nameError),
+            })}
+            placeholder="e.g. Jane Appleseed"
+            onChange={handleInputChange}
+            name="name"
+            value={name}
+          />
+          {!isEmpty(nameError) && <p className="error-msg">{nameError}</p>}
+        </div>
+        <div className="input-wrapper">
+          <label className="input-label">CARD NUMBER</label>
+          <input
+            type="text"
+            className={classnames("form-input", {
+              "error-input": !isEmpty(cardNumberError),
+            })}
+            placeholder="e.g. 1234 5678 9123 0000"
+            value={spacedCardNumber}
+            name="cardNumber"
+            onChange={handleInputChange}
+          />
+          {!isEmpty(cardNumberError) && (
+            <p className="error-msg">{cardNumberError}</p>
+          )}
+        </div>
+        <div className="date-cvc-wrapper">
+          <div className="input-wrapper">
+            <label className="input-label">Exp. Date (MM/YY)</label>
+            <div className="date-input-wrapper">
+              <input
+                className={classnames("form-input", "date-input", {
+                  "error-input": !isEmpty(monthError),
+                })}
+                type="text"
+                placeholder="MM"
+                onChange={handleInputChange}
+                name="month"
+                value={month}
+                maxLength="2"
+              />
+              <input
+                className={classnames("form-input", "date-input", {
+                  "error-input": !isEmpty(yearError),
+                })}
+                type="text"
+                placeholder="YY"
+                onChange={handleInputChange}
+                name="year"
+                value={year}
+                maxLength="2"
+              />
+            </div>
+            {(!isEmpty(monthError) || !isEmpty(yearError)) && (
+              <p className="error-msg">{monthError || yearError}</p>
+            )}
+          </div>
+          <div className="input-wrapper">
+            <label className="input-label">CVC</label>
+            <input
+              className={classnames("form-input", "cvc-input", {
+                "error-input": !isEmpty(cvcError),
+              })}
+              type="number"
+              placeholder="e.g. 123"
+              onChange={handleInputChange}
+              name="cvc"
+              value={cvc}
+              maxLength="3"
+            />
+            {!isEmpty(cvcError) && <p className="error-msg">{cvcError}</p>}
+          </div>
+        </div>
+        <button className="form-btn">Confirm</button>
+      </form>
+    </div>
+  );
+
+  const renderSuccessFormState = (
+    <div className="interactive-card-form-wrapper">
+      <div className="success-state-container">
+        <img
+          className="success-state-icon"
+          src={IconComplete}
+          alt="success state"
+        />
+        <h1 className="success-state-heading">Thank you!</h1>
+        <p className="success-state-info">We've added your card details</p>
+        <button className="form-btn">Continue</button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="interactive-card-form-container">
       <div className="background-image-wrapper">
@@ -127,88 +228,8 @@ function InteractiveCardContainer() {
           </div>
         </div>
       </div>
-      <div className="interactive-card-form-wrapper">
-        <form onSubmit={handleFormSubmit} className="form-wrapper">
-          <div className="input-wrapper">
-            <label className="input-label">CARDHOLDER NAME</label>
-            <input
-              type="text"
-              className={classnames("form-input", {
-                "error-input": !isEmpty(nameError),
-              })}
-              placeholder="e.g. Jane Appleseed"
-              onChange={handleInputChange}
-              name="name"
-              value={name}
-            />
-            {!isEmpty(nameError) && <p className="error-msg">{nameError}</p>}
-          </div>
-          <div className="input-wrapper">
-            <label className="input-label">CARD NUMBER</label>
-            <input
-              type="text"
-              className={classnames("form-input", {
-                "error-input": !isEmpty(cardNumberError),
-              })}
-              placeholder="e.g. 1234 5678 9123 0000"
-              value={spacedCardNumber}
-              name="cardNumber"
-              onChange={handleInputChange}
-            />
-            {!isEmpty(cardNumberError) && (
-              <p className="error-msg">{cardNumberError}</p>
-            )}
-          </div>
-          <div className="date-cvc-wrapper">
-            <div className="input-wrapper">
-              <label className="input-label">Exp. Date (MM/YY)</label>
-              <div className="date-input-wrapper">
-                <input
-                  className={classnames("form-input", "date-input", {
-                    "error-input": !isEmpty(monthError),
-                  })}
-                  type="text"
-                  placeholder="MM"
-                  onChange={handleInputChange}
-                  name="month"
-                  value={month}
-                  maxLength="2"
-                />
-                <input
-                  className={classnames("form-input", "date-input", {
-                    "error-input": !isEmpty(yearError),
-                  })}
-                  type="text"
-                  placeholder="YY"
-                  onChange={handleInputChange}
-                  name="year"
-                  value={year}
-                  maxLength="2"
-                />
-              </div>
-              {(!isEmpty(monthError) || !isEmpty(yearError)) && (
-                <p className="error-msg">{monthError || yearError}</p>
-              )}
-            </div>
-            <div className="input-wrapper">
-              <label className="input-label">CVC</label>
-              <input
-                className={classnames("form-input", "cvc-input", {
-                  "error-input": !isEmpty(cvcError),
-                })}
-                type="number"
-                placeholder="e.g. 123"
-                onChange={handleInputChange}
-                name="cvc"
-                value={cvc}
-                maxLength="3"
-              />
-              {!isEmpty(cvcError) && <p className="error-msg">{cvcError}</p>}
-            </div>
-          </div>
-          <button className="submit-btn">Confirm</button>
-        </form>
-      </div>
+      {renderFormContent}
+      {/* {renderSuccessFormState} */}
     </div>
   );
 }
