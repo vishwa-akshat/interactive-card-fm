@@ -193,7 +193,7 @@ function InteractiveCardContainer() {
               className={classnames("form-input", "cvc-input", {
                 "error-input": !isEmpty(cvcError),
               })}
-              type="number"
+              type="text"
               placeholder="e.g. 123"
               onChange={handleInputChange}
               name="cvc"
