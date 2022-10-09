@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { isEmpty } from "lodash";
+import { isEmpty, isEqual } from "lodash";
 import classnames from "classnames";
 
 import CardFront from "components/CardFront";
@@ -27,9 +27,13 @@ function InteractiveCardContainer() {
     cvcError: "",
   };
 
+  const FORM_STATE_INCOMPLETE = "form_state_incomplete";
+  const FORM_STATE_COMPLETE = "form_state_complete";
+
   const [formContent, setFormContent] = useState(defaultFormContent);
   const [formErrors, setFormErrors] = useState(defaultFormErrors);
   const [spacedCardNumber, setSpacedCardNumber] = useState();
+  const [formState, setFormState] = useState(FORM_STATE_INCOMPLETE);
 
   const { name, cardNumber, month, year, cvc } = formContent;
   const { nameError, cardNumberError, monthError, yearError, cvcError } =
@@ -62,6 +66,12 @@ function InteractiveCardContainer() {
 
   function checkIsNumber(value) {
     return /^\d+\.\d+$|^\d+$/.test(value);
+  }
+
+  function handleResetForm() {
+    setFormContent(defaultFormContent);
+    setFormErrors(defaultFormErrors);
+    setFormState(FORM_STATE_INCOMPLETE);
   }
 
   function handleFormSubmit(event) {
@@ -103,6 +113,11 @@ function InteractiveCardContainer() {
     }
     if (isEmpty(cvc)) {
       errors.cvcError = "Can't be blank";
+    }
+
+    if (isEqual(errors, defaultFormErrors)) {
+      setFormState(FORM_STATE_COMPLETE);
+      return;
     }
 
     return setFormErrors(errors);
@@ -203,7 +218,9 @@ function InteractiveCardContainer() {
         />
         <h1 className="success-state-heading">Thank you!</h1>
         <p className="success-state-info">We've added your card details</p>
-        <button className="form-btn">Continue</button>
+        <button className="form-btn" onClick={handleResetForm}>
+          Continue
+        </button>
       </div>
     </div>
   );
@@ -228,8 +245,8 @@ function InteractiveCardContainer() {
           </div>
         </div>
       </div>
-      {renderFormContent}
-      {/* {renderSuccessFormState} */}
+      {isEqual(formState, FORM_STATE_INCOMPLETE) && renderFormContent}
+      {isEqual(formState, FORM_STATE_COMPLETE) && renderSuccessFormState}
     </div>
   );
 }
